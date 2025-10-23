@@ -1,6 +1,8 @@
 const express = require("express")
 const app = express()
-const productsRoutes = require("./scr/routes/products")
+const productsRoutes = require("./src/routes/products")
+require("./src/models")
+
 app.use(express.json())
 
 const PORT = 4467
