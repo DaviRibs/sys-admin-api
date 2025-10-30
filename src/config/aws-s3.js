@@ -7,3 +7,7 @@ const s3Client = new S3Client({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
 })
+
+module.exports = {
+  s3Client,
+}

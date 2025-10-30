@@ -1,11 +1,26 @@
+const {
+  uploadAndSaveProductsImagens,
+} = require("../config/helpers/product-imagens-upload")
 const { Products } = require("../models")
 
 async function insertProduct(req, res) {
   try {
-    await Products.create(req.body)
+    const product = await Products.create(req.body)
 
+    let images = []
+    try {
+      images = await uploadAndSaveProductsImagens(
+        product.isSoftDeleted,
+        req.files
+      )
+    } catch (error) {
+      console.error("Erro no upload das imagens", error.message)
+    }
     return res.status(201).send({
       message: "Produto criado com sucesso!",
+      images: images.map((img) => ({
+        url: img.url,
+      })),
     })
   } catch (error) {
     return res.status(500).send({

@@ -3,6 +3,7 @@ const app = express()
 const productsRoutes = require("./src/routes/products")
 require("./src/models")
 
+const categoriesRoutes = require("./src/routes/categories")
 app.use(express.json())
 
 const PORT = 4467
@@ -12,7 +13,7 @@ app.get("/", (req, res) => {
 })
 
 app.use(productsRoutes)
-
+app.use(categoriesRoutes)
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`)
 })

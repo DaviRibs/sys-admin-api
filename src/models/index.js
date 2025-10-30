@@ -4,6 +4,8 @@ const Categories = require("./categories")
 
 const Products = require("./products")
 
+const ProductsImages = require("./products_images")
+
 sequelize
   .sync({
     alter: true,
@@ -14,4 +16,5 @@ sequelize
 module.exports = {
   Categories,
   Products,
+  ProductsImages,
 }
