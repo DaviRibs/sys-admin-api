@@ -6,6 +6,8 @@ const Products = require("./products")
 
 const ProductsImages = require("./products_images")
 
+const Users = require("./users")
+
 sequelize
   .sync({
     alter: true,
@@ -17,4 +19,5 @@ module.exports = {
   Categories,
   Products,
   ProductsImages,
+  Users,
 }

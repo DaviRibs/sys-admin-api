@@ -1,6 +1,6 @@
 const {
-  uploadAndSaveProductsImagens,
-} = require("../config/helpers/product-imagens-upload")
+  uploadAndSaveProductsImages,
+} = require("../helpers/product-imagens-upload")
 const { Products } = require("../models")
 
 async function insertProduct(req, res) {
@@ -9,13 +9,11 @@ async function insertProduct(req, res) {
 
     let images = []
     try {
-      images = await uploadAndSaveProductsImagens(
-        product.isSoftDeleted,
-        req.files
-      )
+      images = await uploadAndSaveProductsImages(product.id, req.files)
     } catch (error) {
       console.error("Erro no upload das imagens", error.message)
     }
+
     return res.status(201).send({
       message: "Produto criado com sucesso!",
       images: images.map((img) => ({
@@ -24,7 +22,7 @@ async function insertProduct(req, res) {
     })
   } catch (error) {
     return res.status(500).send({
-      error: "Error ao criar produto",
+      error: "Erro ao criar produto",
     })
   }
 }
@@ -32,10 +30,11 @@ async function insertProduct(req, res) {
 async function getAllProducts(req, res) {
   try {
     const products = await Products.findAll()
+
     return res.send(products)
   } catch (error) {
     return res.status(500).send({
-      error: "Erro ao busca produtos",
+      error: "Erro ao buscar produtos",
     })
   }
 }
