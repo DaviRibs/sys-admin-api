@@ -8,12 +8,14 @@ async function validateCreateUser(req, res, next) {
     return res.status(400).send({
       error: "Todos os campos são obrigatorios",
     })
-    if (password.legth < 8) {
-      return res.status(400).send({
-        error: "A senha deve ter no minimo 8 caracteres",
-      })
-    }
   }
+
+  if (password.legth < 8) {
+    return res.status(400).send({
+      error: "A senha deve ter no minimo 8 caracteres",
+    })
+  }
+
   try {
     const existUser = await Users.findOne({
       where: {
