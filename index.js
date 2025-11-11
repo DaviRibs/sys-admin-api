@@ -5,9 +5,11 @@ const usersRoutes = require("./src/routes/users")
 const categoriesRoutes = require("./src/routes/categories")
 require("./src/models")
 const authRoutes = require("./src/routes/auth")
+require("./src/models")
+const cors = require("cors")
 
 app.use(express.json())
-
+app.use(cors())
 const PORT = 4467
 
 app.get("/", (req, res) => {

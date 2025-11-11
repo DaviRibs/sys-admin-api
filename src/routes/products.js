@@ -4,9 +4,11 @@ const router = express.Router()
 const productsController = require("../controllers/products")
 
 const productsMiddewares = require("../middlewares/products")
+const { authToken } = require("../middlewares/authtoken")
 
 router.post(
   "/products",
+  authToken(["seller", "admin"]),
   productsMiddewares.validateInsertProduct,
   productsController.insertProduct
 )
