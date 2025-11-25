@@ -29,6 +29,7 @@ async function profile(req, res) {
       name: user.name,
       email: user.email,
       role: user.role,
+      image: user.image_url,
     })
   } catch (error) {
     return res.status(500).send({
