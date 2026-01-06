@@ -1,15 +1,19 @@
-const { Users } = require("../models")
-const bcrypt = require("bcrypt")
+const { Users } = require('../models')
+const bcrypt = require('bcrypt')
 
 async function validateLogin(req, res, next) {
   const { email, password } = req.body
 
   if (!email || !password) {
     return res.status(400).send({
-      error: "Todos os campos são obrigatorios",
+      error: 'Todos os campos são obrigatorios',
     })
   }
-
+  if (!user.active) {
+    return res.status(400).send({
+      error: 'Usuario não ativo',
+    })
+  }
   try {
     const user = await Users.findOne({
       where: {
@@ -18,14 +22,14 @@ async function validateLogin(req, res, next) {
     })
     if (!user) {
       return res.status(400).send({
-        error: "User não encontrado",
+        error: 'User não encontrado',
       })
     }
 
     const matchPassword = await bcrypt.compare(password, user.password)
     if (!matchPassword) {
       return res.status(400).send({
-        error: "Senha incorreta",
+        error: 'Senha incorreta',
       })
     }
 

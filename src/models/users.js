@@ -1,8 +1,8 @@
-const { DataTypes } = require("sequelize")
+const { DataTypes } = require('sequelize')
 
-const sequelize = require("../config/database")
+const sequelize = require('../config/database')
 
-const Users = sequelize.define("Users", {
+const Users = sequelize.define('Users', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -24,9 +24,9 @@ const Users = sequelize.define("Users", {
     allowNull: false,
   },
   role: {
-    type: DataTypes.ENUM("user", "admin", "seller"),
+    type: DataTypes.ENUM('user', 'admin', 'seller'),
     allowNull: false,
-    defaultValue: "user",
+    defaultValue: 'user',
   },
   image_url: {
     type: DataTypes.TEXT,
@@ -34,6 +34,11 @@ const Users = sequelize.define("Users", {
     validate: {
       isUrl: true,
     },
+  },
+  active: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
   },
 })
 

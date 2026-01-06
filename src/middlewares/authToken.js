@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken")
-const { Users } = require("../models")
+const jwt = require('jsonwebtoken')
+const { Users } = require('../models')
 
 function authToken(allowedRoles = []) {
   return async (req, res, next) => {
@@ -7,7 +7,7 @@ function authToken(allowedRoles = []) {
 
     if (!token) {
       return res.status(401).send({
-        error: "Token não fornecido",
+        error: 'Token não fornecido',
       })
     }
     try {
@@ -15,19 +15,24 @@ function authToken(allowedRoles = []) {
       const user = await Users.findByPk(decoded.id)
       if (!user) {
         return res.status(401).send({
-          error: "Usuário não encontrado",
+          error: 'Usuário não encontrado',
+        })
+      }
+      if (!user.active) {
+        return res.status(401).send({
+          error: 'Usuário não ativo',
         })
       }
       if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
         return res.status(403).send({
-          error: "Acesso não autorizado",
+          error: 'Acesso não autorizado',
         })
       }
       req.user = user
       next()
     } catch (error) {
       return res.status(401).send({
-        error: "token inválido",
+        error: 'token inválido',
       })
     }
   }
