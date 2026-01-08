@@ -9,7 +9,7 @@ async function sendEmail(to, toName, subject, html) {
       html,
     })
   } catch (error) {
-    throw new error('Erro ao enviar email:', error)
+    throw new Error('Erro ao enviar email:', error)
   }
 }
 
