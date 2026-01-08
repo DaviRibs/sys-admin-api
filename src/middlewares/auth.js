@@ -9,11 +9,7 @@ async function validateLogin(req, res, next) {
       error: 'Todos os campos são obrigatorios',
     })
   }
-  if (!user.active) {
-    return res.status(400).send({
-      error: 'Usuario não ativo',
-    })
-  }
+
   try {
     const user = await Users.findOne({
       where: {
@@ -23,6 +19,14 @@ async function validateLogin(req, res, next) {
     if (!user) {
       return res.status(400).send({
         error: 'User não encontrado',
+      })
+    }
+
+    if (!user.active) {
+      return res.status(400).send({
+        error: 'Usuario não ativo',
+        code: 4002,
+        token: user.id,
       })
     }
 
